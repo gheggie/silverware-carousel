@@ -1,0 +1,24 @@
+---
+Name: silverware-carousel-styles
+---
+
+# Configure Bootstrap Styles:
+
+SilverWare\Grid\Frameworks\Bootstrap\Framework:
+  style_mappings:
+    carousel:
+      carousel: carousel
+      caption: carousel-caption d-none d-md-block
+      controls: carousel-controls
+      control-previous: carousel-control-prev
+      control-previous-icon: carousel-control-prev-icon
+      control-next: carousel-control-next
+      control-next-icon: carousel-control-next-icon
+      control-text: sr-only
+      image: carousel-image d-block
+      indicators: carousel-indicators
+      indicator-active: active
+      inner: carousel-inner
+      item: carousel-item
+      item-active: active
+      slide: slide
