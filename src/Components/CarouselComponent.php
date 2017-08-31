@@ -25,7 +25,6 @@ use SilverStripe\View\SSViewer;
 use SilverWare\Components\BaseComponent;
 use SilverWare\Extensions\Model\ImageResizeExtension;
 use SilverWare\Forms\FieldSection;
-use SilverWare\Lists\ListSourceSlide;
 use SilverWare\Model\Slide;
 use SilverWare\Tools\ViewTools;
 
