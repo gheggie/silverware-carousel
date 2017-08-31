@@ -22,10 +22,11 @@ use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\SSViewer;
-use SilverWare\Carousel\Model\CarouselSlide;
 use SilverWare\Components\BaseComponent;
 use SilverWare\Extensions\Model\ImageResizeExtension;
 use SilverWare\Forms\FieldSection;
+use SilverWare\Lists\ListSourceSlide;
+use SilverWare\Model\Slide;
 use SilverWare\Tools\ViewTools;
 
 /**
@@ -85,7 +86,7 @@ class CarouselComponent extends BaseComponent
      * @var string
      * @config
      */
-    private static $default_child = CarouselSlide::class;
+    private static $default_child = Slide::class;
     
     /**
      * Maps field names to field types for this object.
@@ -98,7 +99,8 @@ class CarouselComponent extends BaseComponent
         'HeadingLevel' => 'Varchar(2)',
         'ShowControls' => 'Boolean',
         'ShowIndicators' => 'Boolean',
-        'ShowIcons' => 'Boolean'
+        'ShowIcons' => 'Boolean',
+        'HideCaptionsOnMobile' => 'Boolean'
     ];
     
     /**
@@ -112,7 +114,8 @@ class CarouselComponent extends BaseComponent
         'ShowIcons' => 1,
         'ShowControls' => 1,
         'ShowIndicators' => 1,
-        'SlideInterval' => 5000
+        'SlideInterval' => 5000,
+        'HideCaptionsOnMobile' => 1
     ];
     
     /**
@@ -122,8 +125,7 @@ class CarouselComponent extends BaseComponent
      * @config
      */
     private static $allowed_children = [
-        CarouselSlide::class,
-        CarouselListSource::class
+        Slide::class
     ];
     
     /**
@@ -145,6 +147,14 @@ class CarouselComponent extends BaseComponent
     private static $extensions = [
         ImageResizeExtension::class
     ];
+    
+    /**
+     * Defines the asset folder for uploading images.
+     *
+     * @var string
+     * @config
+     */
+    private static $asset_folder = 'Slides/Carousel';
     
     /**
      * Answers a list of field objects for the CMS interface.
@@ -197,6 +207,10 @@ class CarouselComponent extends BaseComponent
                     CheckboxField::create(
                         'ShowIndicators',
                         $this->fieldLabel('ShowIndicators')
+                    ),
+                    CheckboxField::create(
+                        'HideCaptionsOnMobile',
+                        $this->fieldLabel('HideCaptionsOnMobile')
                     )
                 ]
             )
@@ -228,10 +242,21 @@ class CarouselComponent extends BaseComponent
         $labels['SlideInterval'] = _t(__CLASS__ . '.SLIDEINTERVALINMS', 'Slide interval (in milliseconds)');
         $labels['HeadingLevel'] = _t(__CLASS__ . '.HEADINGLEVEL', 'Heading level');
         $labels['CarouselStyle'] = $labels['CarouselOptions'] = _t(__CLASS__ . '.CAROUSEL', 'Carousel');
+        $labels['HideCaptionsOnMobile'] = _t(__CLASS__ . '.HIDECAPTIONSONMOBILE', 'Hide captions on mobile');
         
         // Answer Field Labels:
         
         return $labels;
+    }
+    
+    /**
+     * Answers the asset folder used by the receiver.
+     *
+     * @return string
+     */
+    public function getAssetFolder()
+    {
+        return $this->config()->asset_folder;
     }
     
     /**
@@ -512,6 +537,63 @@ class CarouselComponent extends BaseComponent
     public function getIndicatorsShown()
     {
         return (boolean) $this->ShowIndicators;
+    }
+    
+    /**
+     * Answers an array of slide class names for the HTML template.
+     *
+     * @param Slide $slide
+     * @param boolean $isFirst Slide is first in the list.
+     * @param boolean $isMiddle Slide is in the middle of the list.
+     * @param boolean $isLast Slide is last in the list.
+     *
+     * @return array
+     */
+    public function getSlideClassNames(Slide $slide, $isFirst = false, $isMiddle = false, $isLast = false)
+    {
+        // Define Class Names:
+        
+        $classes[] = $this->style('carousel.item');
+        
+        // Add Active Class (if first slide):
+        
+        if ($isFirst) {
+            $classes[] = $this->style('carousel.item-active');
+        }
+        
+        // Answer Class Names:
+        
+        return $classes;
+    }
+    
+    /**
+     * Answers an array of image class names for the HTML template.
+     *
+     * @param Slide $slide
+     *
+     * @return array
+     */
+    public function getImageClassNames(Slide $slide)
+    {
+        return $this->styles('image.fluid', 'carousel.image');
+    }
+    
+    /**
+     * Answers an array of caption class names for the HTML template.
+     *
+     * @param Slide $slide
+     *
+     * @return array
+     */
+    public function getCaptionClassNames(Slide $slide)
+    {
+        $classes = $this->styles('carousel.caption');
+        
+        if ($this->HideCaptionsOnMobile) {
+            $classes[] = $this->style('carousel.hide-mobile');
+        }
+        
+        return $classes;
     }
     
     /**

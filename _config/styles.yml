@@ -8,13 +8,14 @@ SilverWare\Grid\Frameworks\Bootstrap\Framework:
   style_mappings:
     carousel:
       carousel: carousel
-      caption: carousel-caption d-none d-md-block
+      caption: carousel-caption
       controls: carousel-controls
       control-previous: carousel-control-prev
       control-previous-icon: carousel-control-prev-icon
       control-next: carousel-control-next
       control-next-icon: carousel-control-next-icon
       control-text: sr-only
+      hide-mobile: d-none d-md-block
       image: carousel-image d-block
       indicators: carousel-indicators
       indicator-active: active
