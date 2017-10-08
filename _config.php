@@ -14,13 +14,3 @@
  * @license https://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  * @link https://github.com/praxisnetau/silverware-carousel
  */
-
-// Define Module Constants:
-
-if (!defined('SILVERWARE_CAROUSEL_DIR')) {
-    define('SILVERWARE_CAROUSEL_DIR', basename(__DIR__));
-}
-
-if (!defined('SILVERWARE_CAROUSEL_PATH')) {
-    define('SILVERWARE_CAROUSEL_PATH', realpath(__DIR__));
-}
