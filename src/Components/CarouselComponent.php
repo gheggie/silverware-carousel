@@ -70,7 +70,7 @@ class CarouselComponent extends BaseComponent
      * @var string
      * @config
      */
-    private static $icon = 'silverware-carousel/admin/client/dist/images/icons/CarouselComponent.png';
+    private static $icon = 'silverware/carousel: admin/client/dist/images/icons/CarouselComponent.png';
     
     /**
      * Defines an ancestor class to hide from the admin interface.
@@ -638,9 +638,7 @@ class CarouselComponent extends BaseComponent
      */
     public function getTemplate()
     {
-        $viewer = new SSViewer(static::class);
-        
-        return $viewer->dontRewriteHashlinks();
+        return SSViewer::create([static::class])->dontRewriteHashlinks();
     }
     
     /**

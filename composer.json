@@ -1,6 +1,6 @@
 {
   "name": "silverware/carousel",
-  "type": "silverstripe-module",
+  "type": "silverstripe-vendormodule",
   "description": "SilverWare Carousel Module.",
   "homepage": "https://github.com/praxisnetau/silverware-carousel",
   "keywords": [
@@ -30,7 +30,10 @@
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     },
-    "installer-name": "silverware-carousel"
+    "expose": [
+      "admin/client/dist",
+      "client/dist"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true
