@@ -1,0 +1,11 @@
+---
+Name: silverware-carousel
+---
+
+# Configure Content Controller:
+
+SilverStripe\CMS\Controllers\ContentController:
+  required_js:
+    - "silverware/carousel: client/dist/js/bundle.js"
+  required_css:
+    - "silverware/carousel: client/dist/styles/bundle.css"
