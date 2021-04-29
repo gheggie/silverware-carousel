@@ -1,0 +1,23 @@
+CarouselComponent:
+  prev_button_icons:
+    - arrow-left
+    - chevron-left
+    - angle-left
+    - caret-left
+    - long-arrow-left
+    - chevron-circle-left
+    - angle-double-left
+    - arrow-circle-left
+    - caret-square-o-left
+    - arrow-circle-o-left
+  next_button_icons:
+    - arrow-right
+    - chevron-right
+    - angle-right
+    - caret-right
+    - long-arrow-right
+    - chevron-circle-right
+    - angle-double-right
+    - arrow-circle-right
+    - caret-square-o-right
+    - arrow-circle-o-right
